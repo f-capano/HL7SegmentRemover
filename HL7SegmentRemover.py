@@ -11,10 +11,10 @@ import sys
 import requests
 
 # Versión actual del programa
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 # URL del archivo de versión y del ejecutable actualizado
-VERSION_URL = "https://example.com/version.txt"  # Reemplázalo con la URL de tu archivo de versión
-UPDATE_URL = "https://example.com/procesador_hl7.exe"  # Reemplázalo con la URL del ejecutable actualizado
+VERSION_URL = "https://raw.githubusercontent.com/f-capano/HL7SegmentRemover/refs/heads/main/version.txt"  # Reemplázalo con la URL de tu archivo de versión
+UPDATE_URL = "https://github.com/f-capano/HL7SegmentRemover/releases/download/v1.0.0/HL7SegmentRemover.exe"  # Reemplázalo con la URL del ejecutable actualizado
 
 # Configuración del logging
 logging.basicConfig(
@@ -30,13 +30,11 @@ hilo_procesamiento = None
 config_file = "configuracion.json"
 
 # Función para cargar configuraciones
-
 def cargar_configuracion():
     if os.path.exists(config_file):
         with open(config_file, 'r') as f:
             return json.load(f)
     return {}
-
 
 # Función para guardar configuraciones
 def guardar_configuracion(config):
@@ -192,6 +190,24 @@ def descargar_actualizacion():
         logging.error(f"Error al descargar la actualización: {e}")
         messagebox.showerror("Error", "No se pudo descargar la actualización.")
 
+# Cargar configuraciones al inicio
+config = cargar_configuracion()
+
+# Si no hay configuración, pedirla
+if not config:
+    print("No se encontraron configuraciones previas. Por favor ingresa los datos iniciales.")
+    config = {
+        'directorio': '',
+        'segmento': '',
+        'intervalo': 10
+    }
+
+# Usar las configuraciones cargadas
+entry_carpeta_entrada = tk.Entry(ventana, width=50)
+entry_carpeta_entrada.insert(0, config['directorio'])
+entry_intervalo = tk.Entry(ventana, width=10)
+entry_intervalo.insert(0, str(config['intervalo']))
+
 # Llamar a la función de verificación al iniciar el programa
 verificar_actualizacion()
 
@@ -202,17 +218,15 @@ ventana.geometry("600x500")
 
 # Widgets de la GUI
 tk.Label(ventana, text="Carpeta de Entrada:").pack(pady=5)
-entry_carpeta_entrada = tk.Entry(ventana, width=50)
 entry_carpeta_entrada.pack(pady=5)
 tk.Button(ventana, text="Seleccionar Carpeta", command=seleccionar_carpeta_entrada).pack(pady=5)
 
 tk.Label(ventana, text="Segmento a Eliminar (Ej. ZAC):").pack(pady=5)
 entry_segmento = tk.Entry(ventana, width=50)
+entry_segmento.insert(0, config['segmento'])
 entry_segmento.pack(pady=5)
 
 tk.Label(ventana, text="Intervalo de procesamiento (segundos):").pack(pady=5)
-entry_intervalo = tk.Entry(ventana, width=10)
-entry_intervalo.insert(0, "10")
 entry_intervalo.pack(pady=5)
 
 tk.Button(ventana, text="Iniciar Procesamiento Automático", command=iniciar_proceso_periodico).pack(pady=10)
@@ -234,7 +248,7 @@ def leer_logs():
         log_area.delete(1.0, tk.END)
         log_area.insert(tk.END, f.read())
 
-tk.Button(ventana, text="Ver Logs", command=leer_logs).pack(pady=5)
+# Leer los logs cada cierto tiempo
+ventana.after(1000, leer_logs)
 
 ventana.mainloop()
-
