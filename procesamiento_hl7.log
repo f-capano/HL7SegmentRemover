@@ -1,0 +1,35 @@
+2025-01-15 21:45:05,076 - INFO - Intervalo actualizado a: 40 segundos.
+2025-01-15 21:45:46,595 - INFO - Intervalo actualizado a: 10 segundos.
+2025-01-15 21:45:48,999 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 21:45:59,004 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 21:46:09,010 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 21:46:19,015 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 21:46:29,022 - INFO - Procesando archivo: Test2.hl7
+2025-01-15 21:46:29,022 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\Test2.hl7
+2025-01-15 21:46:29,023 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\Test2.hl7
+2025-01-15 21:46:39,028 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 21:46:49,033 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:02:58,524 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:03:08,529 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:03:18,534 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:03:28,539 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:03:38,545 - INFO - Procesando archivo: Test2.hl7
+2025-01-15 23:03:38,545 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\Test2.hl7
+2025-01-15 23:03:38,546 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\Test2.hl7
+2025-01-15 23:03:48,549 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:03:58,554 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:04:08,559 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:29:10,867 - INFO - Procesando archivo: HL7Billing-20240805100944.hl7
+2025-01-15 23:29:10,867 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\HL7Billing-20240805100944.hl7
+2025-01-15 23:29:10,868 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\HL7Billing-20240805100944.hl7
+2025-01-15 23:29:10,872 - INFO - Procesando archivo: HL7Billing-20240805132918.hl7
+2025-01-15 23:29:10,872 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\HL7Billing-20240805132918.hl7
+2025-01-15 23:29:10,873 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\HL7Billing-20240805132918.hl7
+2025-01-15 23:29:10,873 - INFO - Procesando archivo: Test2.hl7
+2025-01-15 23:29:10,873 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\Test2.hl7
+2025-01-15 23:29:10,874 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\Test2.hl7
+2025-01-15 23:29:10,875 - INFO - Procesando archivo: Testtt.hl7
+2025-01-15 23:29:10,875 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\Testtt.hl7
+2025-01-15 23:29:10,875 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\Testtt.hl7
+2025-01-15 23:29:20,880 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:29:30,886 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
