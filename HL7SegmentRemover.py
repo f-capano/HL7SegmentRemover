@@ -2,11 +2,14 @@ import os
 import time
 import logging
 import tkinter as tk
-from tkinter import filedialog, messagebox, scrolledtext
+from tkinter import filedialog, messagebox
 from datetime import datetime
 import shutil
 import threading
 import json
+import pystray
+from pystray import MenuItem as item
+from PIL import Image, ImageDraw
 
 # Versión actual del programa
 VERSION = "1.0.1"
@@ -23,6 +26,7 @@ intervalo_actual = 10
 procesamiento_activo = False
 hilo_procesamiento = None
 config_file = "configuracion.json"
+icono_tray = None
 
 # Función para cargar configuraciones
 def cargar_configuracion():
@@ -134,6 +138,29 @@ def detener_proceso():
     actualizar_estado_visual()
     messagebox.showinfo("Procesamiento detenido", "El procesamiento automático ha sido detenido.")
 
+# Función para minimizar la ventana y seguir procesando en segundo plano
+def minimizar_ventana():
+    ventana.withdraw()  # Esconde la ventana en lugar de minimizarla
+    mostrar_icono_tray()
+
+# Crear el icono de la bandeja del sistema
+def mostrar_icono_tray():
+    icono_tray = pystray.Icon("name", Image.new('RGB', (64, 64), color=(0, 0, 0)), menu=pystray.Menu(
+        item('Salir', salir),
+        item('Mostrar', mostrar_ventana),
+    ))
+    icono_tray.run()
+
+def mostrar_ventana(icon, item):
+    ventana.deiconify()  # Restaura la ventana cuando se hace clic en "Mostrar"
+    icon.stop()  # Detiene el icono en la bandeja
+
+def salir(icon, item):
+    global procesamiento_activo
+    procesamiento_activo = False
+    icon.stop()
+    ventana.quit()
+
 # Carga inicial de configuraciones
 config = cargar_configuracion()
 carpeta_entrada = config.get('directorio', '')
@@ -164,6 +191,7 @@ entry_intervalo.pack(pady=5)
 
 tk.Button(ventana, text="Iniciar Procesamiento Automático", command=iniciar_proceso_periodico).pack(pady=10)
 tk.Button(ventana, text="Detener Procesamiento", command=detener_proceso).pack(pady=5)
+tk.Button(ventana, text="Minimizar", command=minimizar_ventana).pack(pady=10)
 
 estado_label = tk.Label(ventana, text="Detenido", bg="red", fg="white", width=15, height=2)
 estado_label.pack(pady=10)
@@ -177,4 +205,6 @@ def guardar_configuracion_al_cerrar():
     ventana.destroy()
 
 ventana.protocol("WM_DELETE_WINDOW", guardar_configuracion_al_cerrar)
+
+# Iniciar la ventana
 ventana.mainloop()
