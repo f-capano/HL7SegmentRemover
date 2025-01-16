@@ -1,5 +1,5 @@
 {
     "directorio": "C:/Users/pofass/Desktop/HL7Ttest",
-    "segmento": "ZAC",
+    "segmentos": "ZAC,NTE,ZPS",
     "intervalo": 10
 }

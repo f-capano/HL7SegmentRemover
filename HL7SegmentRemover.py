@@ -7,13 +7,9 @@ from datetime import datetime
 import shutil
 import threading
 import json
-import sys
-import requests
 
 # Versión actual del programa
 VERSION = "1.0.1"
-VERSION_URL = "https://raw.githubusercontent.com/f-capano/HL7SegmentRemover/refs/heads/main/version.txt"
-UPDATE_URL = "https://github.com/f-capano/HL7SegmentRemover/releases/download/v1.0.0/HL7SegmentRemover.exe"
 
 # Configuración del logging
 logging.basicConfig(
@@ -47,10 +43,13 @@ def actualizar_estado_visual():
     else:
         estado_label.config(text="Detenido", bg="red", fg="white")
 
-# Función para eliminar el segmento del archivo HL7
-def eliminar_segmento(hl7_texto, segmento_a_eliminar):
+# Función para eliminar los segmentos del archivo HL7
+def eliminar_segmentos(hl7_texto, segmentos_a_eliminar):
     lineas = hl7_texto.splitlines()
-    lineas_filtradas = [linea for linea in lineas if not linea.startswith(segmento_a_eliminar)]
+    lineas_filtradas = [
+        linea for linea in lineas
+        if not any(linea.startswith(segmento) for segmento in segmentos_a_eliminar)
+    ]
     return "\n".join(lineas_filtradas)
 
 # Función para mover archivos a la carpeta de backup
@@ -68,7 +67,7 @@ def mover_a_backup(archivo_entrada, carpeta_entrada):
     logging.info(f"Archivo movido a backup: {archivo_destino}")
 
 # Función para procesar archivos
-def procesar_archivos(directorio_entrada, segmento_a_eliminar, directorio_salida):
+def procesar_archivos(directorio_entrada, segmentos_a_eliminar, directorio_salida):
     if not os.path.exists(directorio_salida):
         os.makedirs(directorio_salida)
         logging.info(f"Carpeta 'Modified' creada en: {directorio_salida}")
@@ -86,7 +85,7 @@ def procesar_archivos(directorio_entrada, segmento_a_eliminar, directorio_salida
 
             logging.info(f"Procesando archivo: {archivo}")
 
-            hl7_modificado = eliminar_segmento(hl7_texto, segmento_a_eliminar)
+            hl7_modificado = eliminar_segmentos(hl7_texto, segmentos_a_eliminar)
 
             if hl7_texto != hl7_modificado:
                 archivo_salida = os.path.join(directorio_salida, archivo)
@@ -96,7 +95,7 @@ def procesar_archivos(directorio_entrada, segmento_a_eliminar, directorio_salida
                 logging.info(f"Archivo modificado y guardado en: {archivo_salida}")
                 mover_a_backup(archivo_entrada, directorio_entrada)
             else:
-                logging.info(f"El archivo {archivo} no contenía el segmento {segmento_a_eliminar}. No se modificó.")
+                logging.info(f"El archivo {archivo} no contenía los segmentos {', '.join(segmentos_a_eliminar)}. No se modificó.")
 
         except Exception as e:
             logging.error(f"Error al procesar el archivo {archivo}: {e}")
@@ -105,10 +104,10 @@ def procesar_archivos(directorio_entrada, segmento_a_eliminar, directorio_salida
 def iniciar_proceso_periodico():
     global procesamiento_activo, hilo_procesamiento, intervalo_actual
     carpeta_entrada = entry_carpeta_entrada.get()
-    segmento = entry_segmento.get()
+    segmentos = entry_segmento.get().split(",")  # Convertir a lista
 
-    if not carpeta_entrada or not segmento:
-        messagebox.showwarning("Entrada incompleta", "Por favor, selecciona la carpeta de entrada y el segmento a eliminar.")
+    if not carpeta_entrada or not segmentos:
+        messagebox.showwarning("Entrada incompleta", "Por favor, selecciona la carpeta de entrada y los segmentos a eliminar.")
         return
 
     carpeta_salida = os.path.join(carpeta_entrada, "Modified")
@@ -117,7 +116,7 @@ def iniciar_proceso_periodico():
 
     def tarea_periodica():
         while procesamiento_activo:
-            procesar_archivos(carpeta_entrada, segmento, carpeta_salida)
+            procesar_archivos(carpeta_entrada, segmentos, carpeta_salida)
             for _ in range(intervalo_actual):
                 if not procesamiento_activo:
                     break
@@ -125,7 +124,7 @@ def iniciar_proceso_periodico():
 
     hilo_procesamiento = threading.Thread(target=tarea_periodica, daemon=True)
     hilo_procesamiento.start()
-    guardar_configuracion({'intervalo': intervalo_actual, 'directorio': carpeta_entrada, 'segmento': segmento})
+    guardar_configuracion({'intervalo': intervalo_actual, 'directorio': carpeta_entrada, 'segmentos': segmentos})
     messagebox.showinfo("Procesamiento automático", f"Procesamiento iniciado con intervalo de {intervalo_actual} segundos.")
 
 # Función para detener el procesamiento automático
@@ -138,7 +137,7 @@ def detener_proceso():
 # Carga inicial de configuraciones
 config = cargar_configuracion()
 carpeta_entrada = config.get('directorio', '')
-segmento = config.get('segmento', '')
+segmentos = config.get('segmentos', '')
 intervalo_actual = config.get('intervalo', 10)
 
 # Crear la ventana principal
@@ -153,9 +152,9 @@ entry_carpeta_entrada.insert(0, carpeta_entrada)
 entry_carpeta_entrada.pack(pady=5)
 tk.Button(ventana, text="Seleccionar Carpeta", command=lambda: entry_carpeta_entrada.insert(0, filedialog.askdirectory())).pack(pady=5)
 
-tk.Label(ventana, text="Segmento a Eliminar (Ej. ZAC):").pack(pady=5)
+tk.Label(ventana, text="Segmentos a Eliminar (Ej. ZAC,NTE):").pack(pady=5)
 entry_segmento = tk.Entry(ventana, width=50)
-entry_segmento.insert(0, segmento)
+entry_segmento.insert(0, segmentos)
 entry_segmento.pack(pady=5)
 
 tk.Label(ventana, text="Intervalo de procesamiento (segundos):").pack(pady=5)
@@ -172,11 +171,10 @@ estado_label.pack(pady=10)
 def guardar_configuracion_al_cerrar():
     guardar_configuracion({
         'directorio': entry_carpeta_entrada.get(),
-        'segmento': entry_segmento.get(),
+        'segmentos': entry_segmento.get(),
         'intervalo': intervalo_actual
     })
     ventana.destroy()
 
 ventana.protocol("WM_DELETE_WINDOW", guardar_configuracion_al_cerrar)
 ventana.mainloop()
-

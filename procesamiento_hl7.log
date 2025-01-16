@@ -33,3 +33,20 @@
 2025-01-15 23:29:10,875 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\Testtt.hl7
 2025-01-15 23:29:20,880 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
 2025-01-15 23:29:30,886 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:56:08,421 - INFO - Procesando archivo: HL7Billing-20240805100944.hl7
+2025-01-15 23:56:08,422 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\HL7Billing-20240805100944.hl7
+2025-01-15 23:56:08,422 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\HL7Billing-20240805100944.hl7
+2025-01-15 23:56:08,423 - INFO - Procesando archivo: HL7Billing-20240805132918.hl7
+2025-01-15 23:56:08,423 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\HL7Billing-20240805132918.hl7
+2025-01-15 23:56:08,424 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\HL7Billing-20240805132918.hl7
+2025-01-15 23:56:08,424 - INFO - Procesando archivo: Test2.hl7
+2025-01-15 23:56:08,424 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\Test2.hl7
+2025-01-15 23:56:08,425 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\Test2.hl7
+2025-01-15 23:56:08,425 - INFO - Procesando archivo: Testtt - copia.hl7
+2025-01-15 23:56:08,425 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\Testtt - copia.hl7
+2025-01-15 23:56:08,426 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\Testtt - copia.hl7
+2025-01-15 23:56:08,426 - INFO - Procesando archivo: Testtt.hl7
+2025-01-15 23:56:08,426 - INFO - Archivo modificado y guardado en: C:/Users/pofass/Desktop/HL7Ttest\Modified\Testtt.hl7
+2025-01-15 23:56:08,427 - INFO - Archivo movido a backup: C:/Users/pofass/Desktop/HL7Ttest\backup\January_2025\Testtt.hl7
+2025-01-15 23:56:18,432 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
+2025-01-15 23:56:28,437 - WARNING - No se encontraron archivos HL7 en el directorio: C:/Users/pofass/Desktop/HL7Ttest
